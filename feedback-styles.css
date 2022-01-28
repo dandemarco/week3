@@ -1,0 +1,11 @@
+.jumbotron {
+    background-color: darkcyan;
+    color: wheat;
+    font-family: 'Dongle', sans-serif;
+}
+
+body {
+    font-family: 'Staatliches';
+    background-color: #7c70a3;
+    color: wheat;
+}

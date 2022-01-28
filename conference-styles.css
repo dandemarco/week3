@@ -1,0 +1,12 @@
+body {
+    font-family: 'DM Serif Display', serif;
+    background-image: linear-gradient(rgb(82, 128, 187), rgb(199, 149, 204));
+}
+
+.container {
+    text-align: center;
+}
+
+.input-forms {
+    margin: 75px;
+}

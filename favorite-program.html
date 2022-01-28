@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="fave-program-styles.css" type="text/css">
+        <div class="jumbotron">
+            <div class="container">
+              <h1 class="display-4">Word Doubles</h1>
+              <p class="lead description"><b>Word Doubles</b> (name will probably change) is a text-based word game I made with Python.</p>
+            </div>
+
+        </div>
+    </head>
+
+    <body>
+
+        <div class="row">
+            <div class="col-md-7">
+                <div class="code-snippet ml-0">
+                    <pre>
+                    <code>
+                        def main():
+
+                        <span id="comment"># Create an empty dictionary to store the words the player has already seen.</span>
+                        history = []
+                    
+                        <span id="comment"># Create a variable to keep track of how many games the player plays.</span>
+                        games = 0
+                    
+                        <span id="comment"># Create a variable to keep track of how many words the game has shown the player.</span>
+                        words = 0
+                    
+                        <span id="comment"># A game consists of 5 rounds, so create a variable to keep track of what round we're on.</span>
+                        rounds = 0
+                    
+                        <span id="comment"># Create variables to keep track of how many correct and incorrect answers the player gets.</span>
+                        correct_answers = 0
+                        wrong_answers = 0
+                    
+                        <span id="comment"># Create a variable to keep track of how many words the player passes on.</span>
+                        passes = 0
+                    
+                        <span id="comment"># And create a variable to keep track of how many times the player needs a hint.</span>
+                        hints = 0
+                    
+                        <span id="comment"># Main program loop.</span>
+                        play_game = True
+                        while play_game:
+                    
+                            <span id="comment"># Start counting the number of games played before quitting.</span>
+                            games = games + 1
+                    
+                            <span id="comment"># Make a loop for a round of gameplay.</span>
+                            while True:
+                                <span id="comment"># Call the lookup() function to grab a random word, its 2 definitions, length, and hint from the game_data
+                                # dictionary. Also, tell us how many words are in the game_data dictionary.</span>
+                                word, def1, def2, hint, entries, letters = lookup()
+                    
+                                <span id="comment"># Skip the rest of the round if the player has seen every word already.</span>
+                                if words == entries:
+                                    break
+                    
+                                else:
+                                    <span id="comment"># Check that the word is not in the player's history.</span>
+                                    if word not in history:
+                    
+                                        <span id="comment"># Put the word in the player's history so that words are not repeated.</span>
+                                        history.append(word)
+                    
+                                        <span id="comment"># Add 1 to the total number of words the game has shown the player.</span>
+                                        words = words + 1
+                    
+                                        <span id="comment"># Display what round it is.</span>
+                                        rounds = rounds + 1
+                                        print()
+                                        print(f'============================ ROUND {rounds} ============================')
+                                        print()
+                    
+                                        <span id="comment"># Call the game() function to use the lookup() data to play a round of the game, determine if the
+                                        # answer is correct or incorrect, and tell us if the player passed and/or needed a hint.</span>
+                                        correct, wrong, used_hint, idk = game(word, def1, def2, hint, letters)
+                                        print()
+                    
+                                        <span id="comment"># If the answer was correct, add 1 to 'correct_answers'.</span>
+                                        if correct:
+                                            correct_answers = correct_answers + 1
+                    
+                                        <span id="comment"># If the answer was wrong, add 1 to 'wrong_answers'.</span>
+                                        elif wrong:
+                                            wrong_answers = wrong_answers + 1
+                    
+                                        <span id="comment"># If the player passed on the word, add 1 to 'passes'.</span>
+                                        elif idk:
+                                            passes = passes + 1
+                    
+                                        <span id="comment"># If the player needed a hint, add 1 to 'hints'.</span>
+                                        if used_hint:
+                                            hints = hints + 1
+                    
+                                        <span id="comment"># Stop the loop after 5 rounds.</span>
+                                        if rounds == 5:
+                                            break
+                    
+                            <span id="comment"># End the game if every word has been used.</span>
+                            if words == entries:
+                                print()
+                                print()
+                                print(f'============================ ALL {words} WORDS COMPLETED! ============================')
+                                print()
+                                print('You\'ve seen every word contained in this game!')
+                    
+                                <span id="comment"># Call the score function to display how many games the player played, and the player's correct answers,
+                                # wrong answers, hints, and passes.</span>
+                                score(games, correct_answers, wrong_answers, hints, passes)
+                    
+                                print('Thanks for playing!')    <span id="comment"># Print a farewell message.</span>
+                    
+                                <span id="comment"># End the play_game loop, ending the program.</span>
+                                play_game = False
+                    
+                            else:
+                                print()
+                                print()
+                                print(f'============================ GAME {games} COMPLETE! ============================')
+                                print()
+                    
+                                <span id="comment"># Call the score function to display how many games the player played, and the player's correct answers,
+                                # wrong answers, hints, and passes.</span>
+                                score(games, correct_answers, wrong_answers, hints, passes)
+                    
+                                <span id="comment"># Call the replay() function to determine if the player wants to play again.</span>
+                                yesno = replay()
+                    
+                                <span id="comment"># If replay() returns False, the player wants to quit.</span>
+                                if not yesno:
+                                    print('Thanks for playing!')    <span id="comment"># Print a farewell message.</span>
+                    
+                                    <span id="comment"># End the play_game loop, ending the program.</span>
+                                    play_game = False
+                    
+                                <span id="comment"># If replay() returns True, the player wants to play again.</span>
+                                else:
+                                    rounds = 0  <span id="comment"># Reset number of rounds to 0.</span>
+                                    print()
+                    </code>
+                    </pre>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <br><br><br><br>
+                <h2>How It Works</h2>
+                <p>The game presents the player with 2 definitions. The player must guess the word being defined. The player can ask for a hint, or pass on the word if it's too tough.</p>
+                <p>Here's the code for the game's <b>main()</b> function.</p> 
+                <p>It creates variables keeping track of how many games have been played, how many rounds have been completed, how many right and wrong answers the player has entered, how many times the player asked for a hint, and creates a history of every word the player has already seen to avoid repeats.</p> 
+                <p>It gets the data for these variables from the other functions in this program (not included here).</p>
+                <p>Follow along with the <span id="comment">comments</span> I left in the code to see how it works.</p>
+            </div>
+
+        </div>
+    </body>
+
+</html>
